@@ -40,6 +40,18 @@ In this step, we'll configure AWS CodeBuild to build our Python application base
 - Provide a name for your build project.
 - For the source provider, choose "AWS CodePipeline."
 - Select the pipeline you created in the previous step.
-- Configure the build environment, such as the operating system, runtime, and compute resources required for your Python application. (I used `Amazon Linux 2` with the `standard:5.0` image and `Python 3.11`.)
-- Specify the build commands, such as installing dependencies and running tests. Customize this based on your application's requirements.
-- Set up the artifa
+- Configure the build environment, such as the operating system, runtime, and compute resources required for your Python application. (I used `Amazon Linux 2` with the `standard:5.0` image and `Python 3.11`. Note: if `standard:5.0` is unavailable in your region, `standard:4.0` with Python 3.9 also works.)
+- Specify the build commands in a `buildspec.yml` file at the root of your repository. A minimal example for a Python project:
+
+```yaml
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+  build:
+    commands:
+      - pip install -r requirements.txt
+      - python -m pytest tests/
+```
