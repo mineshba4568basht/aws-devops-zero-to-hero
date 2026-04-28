@@ -27,10 +27,11 @@ cd /home/ubuntu/simple-python-app
 # Install Python dependencies from requirements.txt if it exists
 if [ -f "requirements.txt" ]; then
     echo "Installing Python dependencies from requirements.txt..."
-    pip3 install -r requirements.txt
+    # Using --no-cache-dir to avoid stale cached packages during deployments
+    pip3 install --no-cache-dir -r requirements.txt
 else
     echo "No requirements.txt found, installing Flask manually..."
-    pip3 install flask
+    pip3 install --no-cache-dir flask
 fi
 
 echo "Dependency installation completed successfully."
